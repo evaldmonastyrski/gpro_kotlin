@@ -1,6 +1,8 @@
 package lt.em.http
 
+import lt.em.datamodel.Car
 import lt.em.datamodel.Driver
+import lt.em.http.input.CarConnector
 import lt.em.http.input.DriverConnector
 import lt.em.http.input.LoginConnector
 import org.openqa.selenium.chrome.ChromeDriver
@@ -37,6 +39,7 @@ class GPROConnector {
     private val webDriver = ChromeDriver(options)
     private val loginConnector = LoginConnector(webDriver, propertyValues)
     private val driverConnector = DriverConnector(webDriver)
+    private val carConnector = CarConnector(webDriver)
 
     fun login() {
         LOGGER.info("Connecting to GPRO website...")
@@ -47,6 +50,12 @@ class GPROConnector {
         val driver = driverConnector.parseDriverSkills()
         LOGGER.info("Driver skills: {}", driver)
         return driver
+    }
+
+    fun getCarData(): Car? {
+        val car: Car = carConnector.parseCar()
+        LOGGER.info("Car: {}", car)
+        return car
     }
 
     fun quit() {
