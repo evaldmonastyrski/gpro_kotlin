@@ -1,17 +1,18 @@
 package lt.em.http
 
+import lt.em.http.input.LoginConnector
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
 import org.slf4j.LoggerFactory
 
 private val LOGGER = LoggerFactory.getLogger(GPROConnector::class.java)
 private const val APPLE_WEB_DRIVER_PATH = "/usr/local/bin/chromedriver"
-private const val WINODWS_WEB_DRIVER_PATH = "C:\\workspace\\\\chromedriver.exe"
+private const val WINDOWS_WEB_DRIVER_PATH = "C:\\workspace\\\\chromedriver.exe"
 private const val WEB_DRIVER_KEY = "webdriver.chrome.driver"
 
 class GPROConnector {
     init {
-        val webDriverPath = if (isApple()) APPLE_WEB_DRIVER_PATH else WINODWS_WEB_DRIVER_PATH
+        val webDriverPath = if (isApple()) APPLE_WEB_DRIVER_PATH else WINDOWS_WEB_DRIVER_PATH
         System.setProperty(WEB_DRIVER_KEY, webDriverPath)
     }
     private val propertyValues = PropertyValues()
@@ -32,8 +33,15 @@ class GPROConnector {
         }
     }
     private val webDriver = ChromeDriver(options)
-    init {
-        webDriver.close()
+    private val loginConnector = LoginConnector(webDriver, propertyValues)
+
+    fun login() {
+        LOGGER.info("Connecting to GPRO website...")
+        loginConnector.login()
+    }
+
+    fun quit() {
+        webDriver.quit()
     }
 }
 
