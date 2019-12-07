@@ -1,4 +1,4 @@
-package lt.em
+package lt.em.core
 
 import lt.em.http.GPROConnector
 import org.slf4j.LoggerFactory
