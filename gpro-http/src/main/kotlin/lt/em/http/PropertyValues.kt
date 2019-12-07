@@ -12,9 +12,9 @@ class PropertyValues {
             val properties = Properties()
             it.let { properties.load(it) }
 
-            cleanLogin = properties.getProperty("clean_login")?.toBoolean() ?: true
-            flushMemory = properties.getProperty("flush_memory")?.toBoolean() ?: false
-            headless = properties.getProperty("headless")?.toBoolean() ?: true
+            cleanLogin = properties.getProperty("clean_login")?.toBoolean() ?: cleanLogin
+            flushMemory = properties.getProperty("flush_memory")?.toBoolean() ?: flushMemory
+            headless = properties.getProperty("headless")?.toBoolean() ?: headless
         }
     }
     val isCleanLogin = cleanLogin
