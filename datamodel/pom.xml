@@ -9,10 +9,10 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>gpro-http</artifactId>
+    <artifactId>datamodel</artifactId>
     <packaging>jar</packaging>
 
-    <name>lt.em gpro-http</name>
+    <name>lt.em datamodel</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,25 +23,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>lt.em</groupId>
-            <artifactId>datamodel</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
             <version>${kotlin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>

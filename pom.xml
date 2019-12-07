@@ -9,6 +9,7 @@
     <modules>
         <module>gpro-core</module>
         <module>gpro-http</module>
+        <module>datamodel</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -29,6 +30,11 @@
             <dependency>
                 <groupId>lt.em</groupId>
                 <artifactId>gpro-http</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>lt.em</groupId>
+                <artifactId>datamodel</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

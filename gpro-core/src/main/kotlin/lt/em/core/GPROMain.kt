@@ -12,10 +12,11 @@ class GPROMain {
         connect()
     }
 
-    fun connect() {
+    private fun connect() {
         val gproConnector = GPROConnector()
         try {
             gproConnector.login()
+            gproConnector.getDriverData()
         } catch (exception: Exception) {
             LOGGER.error("WebDriver Exception. {}", exception.stackTrace)
         } finally {
