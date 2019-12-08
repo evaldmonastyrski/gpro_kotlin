@@ -9,6 +9,7 @@
         <module name="datamodel" />
         <module name="gprocore" />
         <module name="gprohttp" />
+        <module name="gpromongopersistence" />
       </profile>
     </annotationProcessing>
   </component>
