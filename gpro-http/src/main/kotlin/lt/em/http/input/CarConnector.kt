@@ -1,7 +1,6 @@
 package lt.em.http.input
 
-import lt.em.datamodel.Car
-import lt.em.datamodel.carparts.*
+import lt.em.datamodel.*
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
