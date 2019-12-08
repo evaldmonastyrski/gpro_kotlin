@@ -9,22 +9,8 @@ class GPROMain {
 
     fun start() {
         LOGGER.info("Application has started")
-        connect()
-    }
-
-    private fun connect() {
-        val gproConnector = GPROConnector()
-        try {
-            gproConnector.login()
-            gproConnector.getDriverData()
-            gproConnector.getCarData()
-            gproConnector.getPractiseConditionsData()
-            gproConnector.getStaffAndFacilitiesData()
-        } catch (exception: Exception) {
-            LOGGER.error("WebDriver Exception. {}", exception.stackTrace)
-        } finally {
-            gproConnector.quit()
-        }
+        val inputData = GPROConnector().parseInputData()
+        SetupBridge().calculateSetup(inputData.driver, inputData.car, inputData.practiseConditions)
     }
 }
 

@@ -1,9 +1,6 @@
 package lt.em.http
 
-import lt.em.datamodel.Car
-import lt.em.datamodel.Driver
-import lt.em.datamodel.PractiseConditions
-import lt.em.datamodel.StaffAndFacilities
+import lt.em.datamodel.*
 import lt.em.http.input.*
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
@@ -43,37 +40,49 @@ class GPROConnector {
     private val practiseConditionsConnector = PractiseConditionsConnector(webDriver)
     private val facilitiesConnector = FacilitiesConnector(webDriver)
 
-    fun login() {
+    fun parseInputData(): InputData {
+        return try {
+            login()
+            val driver = getDriverData()
+            val car = getCarData()
+            val practiseConditions = getPractiseConditionsData()
+            val staffAndFacilities = getStaffAndFacilitiesData()
+            webDriver.quit()
+            InputData(driver, car, practiseConditions, staffAndFacilities)
+        } catch (exception: Exception) {
+            LOGGER.error("WebDriver Exception. {}", exception.stackTrace)
+            webDriver.quit()
+            throw IllegalStateException("Parsing of input data failed: $exception.stackTrace")
+        }
+    }
+
+    private fun login() {
         LOGGER.info("Connecting to GPRO website...")
         loginConnector.login()
     }
 
-    fun getDriverData(): Driver {
+    private fun getDriverData(): Driver {
         val driver = driverConnector.parseDriverSkills()
         LOGGER.info("Driver skills: {}", driver)
         return driver
     }
 
-    fun getCarData(): Car {
+    private fun getCarData(): Car {
         val car: Car = carConnector.parseCar()
         LOGGER.info("Car: {}", car)
         return car
     }
 
-    fun getPractiseConditionsData(): PractiseConditions {
+    private fun getPractiseConditionsData(): PractiseConditions {
         val practiseConditions: PractiseConditions = practiseConditionsConnector.parsePractiseConditions()
         LOGGER.info("Practise Conditions: {}", practiseConditions)
         return practiseConditions
     }
 
-    fun getStaffAndFacilitiesData(): StaffAndFacilities {
+    private fun getStaffAndFacilitiesData(): StaffAndFacilities {
         val staffAndFacilities: StaffAndFacilities = facilitiesConnector.parseStaffAndFacilities()
         LOGGER.info("Staff & Facilities: {}", staffAndFacilities)
         return staffAndFacilities
-    }
-
-    fun quit() {
-        webDriver.quit()
     }
 }
 
