@@ -38,6 +38,11 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
+                <groupId>lt.em</groupId>
+                <artifactId>gpro-calculator-kotlin</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-stdlib</artifactId>
                 <version>${kotlin.version}</version>
