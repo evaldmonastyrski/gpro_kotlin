@@ -9,8 +9,11 @@ class GPROMain {
 
     fun start() {
         LOGGER.info("Application has started")
-        val inputData = GPROConnector().parseInputData()
-        SetupBridge().calculateSetup(inputData.driver, inputData.car, inputData.practiseConditions)
+        val gproConnector = GPROConnector()
+        val inputData = gproConnector.parseInputData()
+        val setup = SetupBridge().calculateSetup(inputData.driver, inputData.car, inputData.practiseConditions)
+        LOGGER.info("Please enter the tyre compound you would like to use: \n")
+        gproConnector.drivePractiseLap(setup, readLine() ?: "")
     }
 }
 
