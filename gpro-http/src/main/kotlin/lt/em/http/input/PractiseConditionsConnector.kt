@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver
 private const val RAIN_GIF_NAME = "wRain.gif"
 private const val PRACTISE_URL = "https://gpro.net/gb/Qualify.asp"
 
-class PractiseConditionsConnector(val webDriver: WebDriver) {
+class PractiseConditionsConnector(private val webDriver: WebDriver) {
     fun parsePractiseConditions(): PractiseConditions {
         webDriver.get(PRACTISE_URL)
         val trackId = webDriver.findElement(By.linkText("Track information"))

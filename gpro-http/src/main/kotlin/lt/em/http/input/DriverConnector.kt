@@ -8,7 +8,7 @@ private const val FROM_INDEX = 11
 private const val TO_INDEX = 37
 private const val DRIVER_URL = "https://gpro.net/gb/TrainingSession.asp"
 
-class DriverConnector(val webDriver: WebDriver) {
+class DriverConnector(private val webDriver: WebDriver) {
     fun parseDriverSkills(): Driver {
         webDriver.get(DRIVER_URL)
         val headers = webDriver.findElements(By.tagName("h1"))

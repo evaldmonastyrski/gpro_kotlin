@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement
 
 private const val CAR_URL = "https://gpro.net/gb/UpdateCar.asp"
 
-class CarConnector(val webDriver: WebDriver) {
+class CarConnector(private val webDriver: WebDriver) {
     fun parseCar(): Car {
         webDriver.get(CAR_URL)
         val carProperties = mutableListOf<Int>()

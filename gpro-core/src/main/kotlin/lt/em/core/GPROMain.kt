@@ -19,6 +19,7 @@ class GPROMain {
             gproConnector.getDriverData()
             gproConnector.getCarData()
             gproConnector.getPractiseConditionsData()
+            gproConnector.getStaffAndFacilitiesData()
         } catch (exception: Exception) {
             LOGGER.error("WebDriver Exception. {}", exception.stackTrace)
         } finally {
