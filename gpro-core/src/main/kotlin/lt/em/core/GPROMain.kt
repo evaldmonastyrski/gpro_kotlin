@@ -1,5 +1,7 @@
 package lt.em.core
 
+import lt.em.datamodel.CombinedData
+import lt.em.datamodel.InputData
 import lt.em.gpro.persistence.GPROPersister
 import lt.em.http.GPROConnector
 import org.slf4j.LoggerFactory
@@ -15,10 +17,15 @@ class GPROMain {
         val setup = SetupBridge().calculateSetup(inputData.driver, inputData.car, inputData.practiseConditions)
         LOGGER.info("Please enter the tyre compound you would like to use: \n")
         gproConnector.drivePractiseLap(setup, readLine() ?: "")
-        persist()
+        persist(inputData, gproConnector)
     }
 
-    fun persist() {
+    fun persist(inputData: InputData, gproConnector: GPROConnector) {
+        CombinedData(inputData.driver,
+            inputData.car,
+            inputData.practiseConditions,
+            inputData.staffAndFacilities,
+            gproConnector.getPractiseData())
         GPROPersister()
     }
 }

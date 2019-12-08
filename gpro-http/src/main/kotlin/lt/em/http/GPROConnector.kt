@@ -39,6 +39,7 @@ class GPROConnector {
     private val carConnector = CarConnector(webDriver)
     private val practiseConditionsConnector = PractiseConditionsConnector(webDriver)
     private val facilitiesConnector = FacilitiesConnector(webDriver)
+    private val practiseConnector = PractiseConnector(webDriver)
     private val practiseActivator = GPROActivator(webDriver)
 
     fun parseInputData(): InputData {
@@ -58,8 +59,14 @@ class GPROConnector {
 
     fun drivePractiseLap(setup: Setup, tyreCompound: String) {
         practiseActivator.drivePractiseLap(setup, tyreCompound)
-        webDriver.quit()
         LOGGER.info("Practise lap was driven successfully")
+    }
+
+    fun getPractiseData(): Practise {
+        val practise: Practise = practiseConnector.parsePractise()
+        LOGGER.info("Practise: {}", practise)
+        webDriver.quit()
+        return practise
     }
 
     private fun login() {
