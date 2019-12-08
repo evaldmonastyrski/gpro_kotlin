@@ -2,9 +2,11 @@ package lt.em.http
 
 import lt.em.datamodel.Car
 import lt.em.datamodel.Driver
+import lt.em.datamodel.PractiseConditions
 import lt.em.http.input.CarConnector
 import lt.em.http.input.DriverConnector
 import lt.em.http.input.LoginConnector
+import lt.em.http.input.PractiseConditionsConnector
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
 import org.slf4j.LoggerFactory
@@ -40,6 +42,7 @@ class GPROConnector {
     private val loginConnector = LoginConnector(webDriver, propertyValues)
     private val driverConnector = DriverConnector(webDriver)
     private val carConnector = CarConnector(webDriver)
+    private val practiseConditionsConnector = PractiseConditionsConnector(webDriver)
 
     fun login() {
         LOGGER.info("Connecting to GPRO website...")
@@ -52,10 +55,16 @@ class GPROConnector {
         return driver
     }
 
-    fun getCarData(): Car? {
+    fun getCarData(): Car {
         val car: Car = carConnector.parseCar()
         LOGGER.info("Car: {}", car)
         return car
+    }
+
+    fun getPractiseConditionsData(): PractiseConditions {
+        val practiseConditions: PractiseConditions = practiseConditionsConnector.parsePractiseConditions()
+        LOGGER.info("Practise Conditions: {}", practiseConditions)
+        return practiseConditions
     }
 
     fun quit() {
