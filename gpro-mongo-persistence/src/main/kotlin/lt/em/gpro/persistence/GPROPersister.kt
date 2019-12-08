@@ -11,10 +11,18 @@ private const val GPRO_DB = "gpro_db"
 private const val DEFAULT_PORT = 27017
 
 class GPROPersister {
-    private val client = KMongo.createClient(LOCALHOST, DEFAULT_PORT)
-    private val database = client.getDatabase(GPRO_DB)
+    private val mongoClient = KMongo.createClient(LOCALHOST, DEFAULT_PORT)
+    private val database = mongoClient.getDatabase(GPRO_DB)
     init {
         LOGGER.info("Connected to MongoDB")
     }
-    val collection = database.getCollection<CombinedData>()
+    private val collection = database.getCollection<CombinedData>("Combined Data Records")
+
+    fun persistCombinedData(combinedData: CombinedData) {
+        collection.insertOne(combinedData)
+    }
+
+    fun closeDatabaseConnection() {
+        mongoClient.close()
+    }
 }

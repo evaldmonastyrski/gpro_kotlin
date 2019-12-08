@@ -21,12 +21,16 @@ class GPROMain {
     }
 
     fun persist(inputData: InputData, gproConnector: GPROConnector) {
-        CombinedData(inputData.driver,
+        val combinedData = CombinedData(
+            inputData.driver,
             inputData.car,
             inputData.practiseConditions,
             inputData.staffAndFacilities,
-            gproConnector.getPractiseData())
-        GPROPersister()
+            gproConnector.getPractiseData()
+        )
+        val gproPersister = GPROPersister()
+        gproPersister.persistCombinedData(combinedData)
+        gproPersister.closeDatabaseConnection()
     }
 }
 
