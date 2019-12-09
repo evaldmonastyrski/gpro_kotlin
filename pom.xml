@@ -17,6 +17,7 @@
     <name>lt.em gpro-analysis-tool-kotlin</name>
 
     <properties>
+        <main.class>lt.em.core.GPROMainKt</main.class>
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
         <selenium.version>3.141.59</selenium.version>
@@ -128,7 +129,7 @@
                             <transformers>
                                 <transformer implementation=
                                                      "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>GPROMain</mainClass>
+                                    <mainClass>${main.class}</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
