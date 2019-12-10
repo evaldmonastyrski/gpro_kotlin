@@ -14,27 +14,27 @@ class GPROMain {
         LOGGER.info("Application has started")
         val gproConnector = GPROConnector()
         val inputData = gproConnector.parseInputData()
-        val setup = SetupBridge().calculateSetup(inputData.driver, inputData.car, inputData.practiseConditions)
+        val setup = calculateSetup(inputData.driver, inputData.car, inputData.practiseConditions)
         LOGGER.info("Please enter the tyre compound you would like to use: \n")
         gproConnector.drivePractiseLap(setup, readLine() ?: "")
         persist(inputData, gproConnector)
-    }
-
-    fun persist(inputData: InputData, gproConnector: GPROConnector) {
-        val combinedData = CombinedData(
-            inputData.driver,
-            inputData.car,
-            inputData.practiseConditions,
-            inputData.staffAndFacilities,
-            gproConnector.getPractiseData()
-        )
-        val gproPersister = GPROPersister()
-        gproPersister.persistCombinedData(combinedData)
-        gproPersister.closeDatabaseConnection()
     }
 }
 
 fun main() {
     GPROMain().start()
+}
+
+private fun persist(inputData: InputData, gproConnector: GPROConnector) {
+    val combinedData = CombinedData(
+        inputData.driver,
+        inputData.car,
+        inputData.practiseConditions,
+        inputData.staffAndFacilities,
+        gproConnector.getPractiseData()
+    )
+    val gproPersister = GPROPersister()
+    gproPersister.persistCombinedData(combinedData)
+    gproPersister.closeDatabaseConnection()
 }
 
