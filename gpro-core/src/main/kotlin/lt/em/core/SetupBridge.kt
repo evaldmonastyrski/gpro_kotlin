@@ -22,11 +22,10 @@ fun calculateSetup(driver: Driver, car: Car, practiseConditions: PractiseConditi
             convertPractiseConditions(practiseConditions),
             convertCar(car)
         )
-        var setup = Setup()
-        cSetup?.let { setup = convertSetup(it) }
 
+        val setup: Setup? = cSetup?.let { convertSetup(it) }
         LOGGER.info("Calculator package is available, setup for {}: {}",practiseConditions.trackName, setup)
-        return setup.copy()
+        return setup ?: Setup()
     } else {
         val setup = Setup()
         LOGGER.info("Calculator package is unavailable, default setup will be used: {}", setup)
