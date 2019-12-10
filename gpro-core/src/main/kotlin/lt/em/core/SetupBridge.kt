@@ -23,9 +23,8 @@ fun calculateSetup(driver: Driver, car: Car, practiseConditions: PractiseConditi
             convertCar(car)
         )
         var setup = Setup()
-        if (cSetup != null) {
-            setup = convertSetup(cSetup)
-        }
+        cSetup?.let { setup = convertSetup(it) }
+
         LOGGER.info("Calculator package is available, setup for {}: {}",practiseConditions.trackName, setup)
         return setup.copy()
     } else {
