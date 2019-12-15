@@ -44,7 +44,6 @@ class GPROConnector {
 
     fun parseInputData(): InputData {
         return try {
-            login()
             val driver = getDriverData()
             val car = getCarData()
             val practiseConditions = getPractiseConditionsData()
@@ -69,11 +68,16 @@ class GPROConnector {
         return practise
     }
 
+    fun updateCar(partsToUpdate: List<Pair<String, Int>>) {
+        partsToUpdate.forEach { part -> LOGGER.info("Update ${part.first} to level ${part.second}") }
+        carConnector.selectRequiredOptions(partsToUpdate)
+    }
+
     fun quitWebDriver() {
         webDriver.quit()
     }
 
-    private fun login() {
+    fun login() {
         LOGGER.info("Connecting to GPRO website...")
         loginConnector.login()
     }
