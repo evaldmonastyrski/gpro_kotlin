@@ -69,6 +69,10 @@ class GPROConnector {
         return practise
     }
 
+    fun quitWebDriver() {
+        webDriver.quit()
+    }
+
     private fun login() {
         LOGGER.info("Connecting to GPRO website...")
         loginConnector.login()
