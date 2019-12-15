@@ -43,17 +43,11 @@ class GPROConnector {
     private val practiseActivator = GPROActivator(webDriver)
 
     fun parseInputData(): InputData {
-        return try {
-            val driver = getDriverData()
-            val car = getCarData()
-            val practiseConditions = getPractiseConditionsData()
-            val staffAndFacilities = getStaffAndFacilitiesData()
-            InputData(driver, car, practiseConditions, staffAndFacilities)
-        } catch (exception: Exception) {
-            LOGGER.error("WebDriver Exception. {}", exception.stackTrace)
-            webDriver.quit()
-            throw IllegalStateException("Parsing of input data failed: $exception.stackTrace")
-        }
+        val driver = getDriverData()
+        val car = getCarData()
+        val practiseConditions = getPractiseConditionsData()
+        val staffAndFacilities = getStaffAndFacilitiesData()
+        return InputData(driver, car, practiseConditions, staffAndFacilities)
     }
 
     fun drivePractiseLap(setup: Setup, tyreCompound: String) {
@@ -64,7 +58,6 @@ class GPROConnector {
     fun getPractiseData(): Practise {
         val practise: Practise = practiseConnector.parsePractise()
         LOGGER.info("Practise: {}", practise)
-        webDriver.quit()
         return practise
     }
 
