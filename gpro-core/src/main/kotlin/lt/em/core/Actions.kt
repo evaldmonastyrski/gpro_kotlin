@@ -34,6 +34,10 @@ class Actions {
             gproConnector.updateCar(partsToUpdate)
         }
 
+        fun trainDriver(gproConnector: GPROConnector) {
+            gproConnector.trainDriver(acceptDriverTrainingType())
+        }
+
         private fun checkSavedConf(storedUpdateConfiguration: String, preferences: Preferences): String {
             LOGGER.info("Would you like to use stored preferences for updating car? Y/N")
             val confirmation = (readLine() ?: "").toUpperCase()
@@ -58,6 +62,11 @@ class Actions {
             val carUpdateConfiguration = (readLine() ?: "").toUpperCase()
             preferences.put(CAR_UPDATE_CONFIGURATION_KEY, carUpdateConfiguration)
             return carUpdateConfiguration
+        }
+
+        private fun acceptDriverTrainingType(): String {
+            LOGGER.info("Enter driver training type (minimum 4 first characters): ")
+            return (readLine() ?: "").toUpperCase().slice(IntRange(0, 3))
         }
     }
 }

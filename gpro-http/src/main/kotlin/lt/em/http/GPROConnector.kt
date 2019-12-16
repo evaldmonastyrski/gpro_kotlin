@@ -66,6 +66,11 @@ class GPROConnector {
         carConnector.selectRequiredOptions(partsToUpdate)
     }
 
+    fun trainDriver(trainingType: String) {
+        LOGGER.info("Training type: $trainingType")
+        driverConnector.trainDriver(trainingType)
+    }
+
     fun quitWebDriver() {
         webDriver.quit()
     }

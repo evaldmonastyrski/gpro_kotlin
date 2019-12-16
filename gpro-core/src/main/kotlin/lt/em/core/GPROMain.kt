@@ -17,11 +17,15 @@ class GPROMain {
             gproConnector.login()
 
             while (true) {
-                LOGGER.info("Choose Action: \n P - drive practise lap \n U - update car \n C - close application")
+                LOGGER.info("Choose Action: \n P - drive practise lap" +
+                        " \n U - update car" +
+                        " \n T - train driver" +
+                        " \n C - close application")
 
                 when ((readLine() ?: "").toUpperCase()) {
                     "P" -> Actions.drivePractiseLap(gproConnector)
                     "U" -> Actions.updateCar(gproConnector, preferences)
+                    "T" -> Actions.trainDriver(gproConnector)
                     else -> {
                         gproConnector.quitWebDriver()
                         LOGGER.info("Application is closing")

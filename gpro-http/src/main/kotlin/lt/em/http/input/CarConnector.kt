@@ -11,18 +11,20 @@ private const val UPDATE_BUTTON = "btnUpdateCar"
 
 class CarConnector(private val webDriver: WebDriver) {
 
-    private val partsMap = hashMapOf(
-        "CHA" to Pair(5, "BuyChassis"),
-        "ENG" to Pair(6, "BuyEngine"),
-        "FRO" to Pair(7, "BuyFWing"),
-        "REA" to Pair(8, "BuyRWing"),
-        "UND" to Pair(9, "BuyUnderbody"),
-        "SID" to Pair(10, "BuySidepods"),
-        "COO" to Pair(11, "BuyCooling"),
-        "GEA" to Pair(12, "BuyGear"),
-        "BRA" to Pair(13, "BuyBrakes"),
-        "SUS" to Pair(14, "BuySusp"),
-        "ELE" to Pair(15, "BuyElectronics"))
+    companion object {
+        private val partsMap = hashMapOf(
+            "CHA" to Pair(5, "BuyChassis"),
+            "ENG" to Pair(6, "BuyEngine"),
+            "FRO" to Pair(7, "BuyFWing"),
+            "REA" to Pair(8, "BuyRWing"),
+            "UND" to Pair(9, "BuyUnderbody"),
+            "SID" to Pair(10, "BuySidepods"),
+            "COO" to Pair(11, "BuyCooling"),
+            "GEA" to Pair(12, "BuyGear"),
+            "BRA" to Pair(13, "BuyBrakes"),
+            "SUS" to Pair(14, "BuySusp"),
+            "ELE" to Pair(15, "BuyElectronics"))
+    }
 
     fun parseCar(): Car {
         val rows = listCarPartElements()
