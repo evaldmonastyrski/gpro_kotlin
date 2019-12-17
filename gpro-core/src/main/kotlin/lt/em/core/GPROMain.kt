@@ -1,6 +1,7 @@
 package lt.em.core
 
 import lt.em.http.GPROConnector
+import lt.em.http.LapType
 import org.slf4j.LoggerFactory
 import java.lang.Exception
 import java.util.prefs.Preferences
@@ -23,7 +24,8 @@ class GPROMain {
                         " \n C - close application")
 
                 when ((readLine() ?: "").toUpperCase()) {
-                    "P" -> Actions.drivePractiseLap(gproConnector)
+                    "P" -> Actions.driveLap(gproConnector, LapType.PRACTISE)
+                    "Q1" -> Actions.driveLap(gproConnector, LapType.Q1)
                     "U" -> Actions.updateCar(gproConnector, preferences)
                     "T" -> Actions.trainDriver(gproConnector)
                     else -> {

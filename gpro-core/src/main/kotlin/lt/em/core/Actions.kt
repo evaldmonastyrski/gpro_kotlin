@@ -4,6 +4,7 @@ import lt.em.datamodel.CombinedData
 import lt.em.datamodel.InputData
 import lt.em.gpro.persistence.GPROPersister
 import lt.em.http.GPROConnector
+import lt.em.http.LapType
 import org.slf4j.LoggerFactory
 import java.util.prefs.Preferences
 
@@ -12,12 +13,22 @@ class Actions {
         private val LOGGER = LoggerFactory.getLogger(Actions::class.java)
         private const val CAR_UPDATE_CONFIGURATION_KEY = "UpdateConfiguration"
 
-        fun drivePractiseLap(gproConnector: GPROConnector) {
+        fun driveLap(gproConnector: GPROConnector, lapType: LapType) {
             val inputData = gproConnector.parseInputData()
             val setup = calculateSetup(inputData.driver, inputData.car, inputData.practiseConditions)
             LOGGER.info("Please enter the tyre compound you would like to use: \n")
-            gproConnector.drivePractiseLap(setup, readLine() ?: "")
-            persist(inputData, gproConnector)
+            val tyreCompound = readLine() ?: ""
+            when (lapType) {
+                LapType.Q1 -> {
+                    LOGGER.info("Please choose qualification 1 risk from 0 to 3: \n")
+                    gproConnector.driverQualification1Lap(setup, tyreCompound, readLine()?.toInt() ?: 0)
+                }
+                LapType.PRACTISE -> {
+                    gproConnector.drivePractiseLap(setup, tyreCompound)
+                    persist(inputData, gproConnector)
+                }
+                else -> LOGGER.info("Incorrect lap type")
+            }
         }
 
         fun updateCar(gproConnector: GPROConnector, preferences: Preferences) {

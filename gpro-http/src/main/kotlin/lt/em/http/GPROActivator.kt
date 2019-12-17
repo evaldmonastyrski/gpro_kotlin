@@ -8,7 +8,10 @@ import org.openqa.selenium.support.ui.Select
 private const val PRACTISE_URL = "https://gpro.net/gb/Qualify.asp"
 
 class GPROActivator(private val webDriver: WebDriver) {
-    fun drivePractiseLap(setup: Setup, tyreCompound: String) {
+    fun driveQ1Lap(setup: Setup,
+                   tyreCompound: String,
+                   lapType: LapType = LapType.PRACTISE,
+                   qualificationRiskIndex: Int = 0) {
         webDriver.get(PRACTISE_URL)
         webDriver.findElement(By.name("FWing")).sendKeys(java.lang.String.valueOf(setup.frontWing))
         webDriver.findElement(By.name("RWing")).sendKeys(java.lang.String.valueOf(setup.rearWing))
@@ -22,6 +25,14 @@ class GPROActivator(private val webDriver: WebDriver) {
             )
         )
         dropdown.selectByVisibleText(tyreCompound)
+        if (lapType == LapType.Q1) {
+            additionalSetupForQ1(qualificationRiskIndex)
+        }
         webDriver.findElement(By.name("DriveLap")).click()
+    }
+
+    private fun additionalSetupForQ1(index: Int) {
+        webDriver.findElement(By.id("radioQual")).click()
+        Select(webDriver.findElement(By.name("Risk"))).selectByIndex(index)
     }
 }
