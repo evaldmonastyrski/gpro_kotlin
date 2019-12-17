@@ -26,6 +26,7 @@ class GPROMain {
                 when ((readLine() ?: "").toUpperCase()) {
                     "P" -> Actions.driveLap(gproConnector, LapType.PRACTISE)
                     "Q1" -> Actions.driveLap(gproConnector, LapType.Q1)
+                    "Q2" -> Actions.driveLap(gproConnector, LapType.Q2)
                     "U" -> Actions.updateCar(gproConnector, preferences)
                     "T" -> Actions.trainDriver(gproConnector)
                     else -> {

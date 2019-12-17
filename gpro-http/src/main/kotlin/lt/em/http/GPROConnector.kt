@@ -51,13 +51,18 @@ class GPROConnector {
     }
 
     fun drivePractiseLap(setup: Setup, tyreCompound: String) {
-        practiseActivator.driveQ1Lap(setup, tyreCompound)
+        practiseActivator.driveLap(setup, tyreCompound)
         LOGGER.info("Practise lap was driven successfully")
     }
 
-    fun driverQualification1Lap(setup: Setup, tyreCompound: String, qualificationRiskIndex: Int) {
-        practiseActivator.driveQ1Lap(setup, tyreCompound, LapType.Q1, qualificationRiskIndex)
-        LOGGER.info("Qualification lap was driven successfully")
+    fun driveQualification1Lap(setup: Setup, tyreCompound: String, qualificationRiskIndex: Int) {
+        practiseActivator.driveLap(setup, tyreCompound, LapType.Q1, qualificationRiskIndex)
+        LOGGER.info("Qualification 1 lap was driven successfully")
+    }
+
+    fun driveQualification2Lap(setup: Setup, tyreCompound: String, qualificationRiskIndex: Int, fuel: Int) {
+        practiseActivator.driveLap(setup, tyreCompound, LapType.Q2, qualificationRiskIndex, fuel)
+        LOGGER.info("Qualification 2 lap was driven successfully")
     }
 
     fun getPractiseData(): Practise {

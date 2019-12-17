@@ -18,14 +18,24 @@ class Actions {
             val setup = calculateSetup(inputData.driver, inputData.car, inputData.practiseConditions)
             LOGGER.info("Please enter the tyre compound you would like to use: \n")
             val tyreCompound = readLine() ?: ""
+            val qualificationRiskIndex = if (lapType != LapType.PRACTISE) {
+                LOGGER.info("Please choose qualification 1 risk from 0 to 3: \n")
+                readLine()?.toInt() ?: 0
+            } else 0
             when (lapType) {
-                LapType.Q1 -> {
-                    LOGGER.info("Please choose qualification 1 risk from 0 to 3: \n")
-                    gproConnector.driverQualification1Lap(setup, tyreCompound, readLine()?.toInt() ?: 0)
-                }
                 LapType.PRACTISE -> {
                     gproConnector.drivePractiseLap(setup, tyreCompound)
                     persist(inputData, gproConnector)
+                }
+                LapType.Q1 -> gproConnector.driveQualification1Lap(setup, tyreCompound, qualificationRiskIndex)
+                LapType.Q2 -> {
+                    LOGGER.info("Please enter fuel for Qualification 2: \n")
+                    gproConnector.driveQualification2Lap(
+                        setup,
+                        tyreCompound,
+                        qualificationRiskIndex,
+                        readLine()?.toInt() ?: 0
+                    )
                 }
                 else -> LOGGER.info("Incorrect lap type")
             }
@@ -34,8 +44,8 @@ class Actions {
         fun updateCar(gproConnector: GPROConnector, preferences: Preferences) {
             val storedUpdateConfiguration = preferences.get(CAR_UPDATE_CONFIGURATION_KEY, "")
             val carUpdateConfiguration = (
-                if (storedUpdateConfiguration.isNotEmpty()) checkSavedConf(storedUpdateConfiguration, preferences)
-                else acceptCarUpdateConf(preferences)).split(",")
+                    if (storedUpdateConfiguration.isNotEmpty()) checkSavedConf(storedUpdateConfiguration, preferences)
+                    else acceptCarUpdateConf(preferences)).split(",")
 
             val partsToUpdate: MutableList<Pair<String, Int>> = mutableListOf()
             carUpdateConfiguration.forEach { part ->
